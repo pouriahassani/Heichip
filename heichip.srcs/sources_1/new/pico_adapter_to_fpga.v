@@ -10,6 +10,13 @@ module pico_adapter_to_fpga (
     input  wire [15:0] uio_in,   // IOs: Input path
     output wire [15:0] uio_out,  // IOs: Output path
     output wire [15:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
+    input  wire        MEM_VALID,
+    input  wire        MEM_INSTR,
+    input  wire [31:0] MEM_ADDR ,
+    input  wire [31:0] MEM_WDATA,
+    input  wire [ 3:0] MEM_WSTRB,
+    output reg         mem_ready,
+    output reg [31:0]  mem_rdata,
     input  wire       ena,      // always 1 when the design is powered, so you can ignore it
     input  wire       clk,      // clock
     input  wire       rst_n     // reset_n - low to reset
