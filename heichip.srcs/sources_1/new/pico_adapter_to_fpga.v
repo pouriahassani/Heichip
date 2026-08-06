@@ -1,7 +1,4 @@
-// SPDX-FileCopyrightText: © 2026 XXX Authors
-// SPDX-License-Identifier: Apache-2.0
 
-// Adapted from the Tiny Tapeout template
 
 
 module pico_adapter_to_fpga (
@@ -53,7 +50,6 @@ module pico_adapter_to_fpga (
     assign uio_out[7:3] = MEM_WSTRB;
     assign uio_out[2]   = MEM_VALID;
     assign uio_out[1:0] = type;
-    assign uio_out[3]   = MEM_INSTR;
     assign FPGA_READY   = uio_in[0];
     always @(posedge clk)
         if(!rst_n)
