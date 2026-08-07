@@ -2201,10 +2201,10 @@ module picorv32_pcpi_mul #(
 	input      [31:0]  pcpi_insn,
 	input      [31:0]  pcpi_rs1,
 	input      [31:0]  pcpi_rs2,
-	output wire        pcpi_wr,
+	output reg        pcpi_wr,
 	output wire [31:0] pcpi_rd,
-	output wire        pcpi_wait,
-	output wire        pcpi_ready
+	output reg        pcpi_wait,
+	output reg        pcpi_ready
 );
 
           //Internal variables
@@ -2222,19 +2222,11 @@ module picorv32_pcpi_mul #(
                 pcpi_ready <= 0;
                 pcpi_wr <= 0;
                 pcpi_wait <= 0;
-				`ifdef PCPI_COUNT
-				if (!resetn) begin
-				fpmulx_count <= 0;
-				end
-				`endif
 				if (active) begin
 						// $display("ACTIVE: picorv32_pcpi_fpmul_approx");
                         pcpi_ready <= 1;
                         pcpi_wr <= 1;
-						`fp_count($display("FPMUL_APPROX Completed.");)
-						`ifdef PCPI_COUNT
-							fpmulx_count <= fpmulx_count + 1;
-						`endif
+
 						// $display("FPMUL_APPROX input a: %h, input b: %h, external output z: %h", pcpi_rs1, pcpi_rs2, pcpi_rd);
                 end
         end
