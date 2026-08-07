@@ -1177,12 +1177,7 @@ module picorv32 #(
 
 	reg [7:0] cpu_state;
 	reg [1:0] irq_state;
-	// regfile handshake
-	wire rd_stall, wr_stall;
-	wire rd_valid = (cpu_state == cpu_state_ld_rs1) ||
-	                (cpu_state == cpu_state_ld_rs2);
-	wire wr_valid = (cpu_state == cpu_state_fetch) &&
-	                cpuregs_write && (latched_rd != 0);
+
 	`FORMAL_KEEP reg [127:0] dbg_ascii_state;
 
 	always @* begin
@@ -1376,18 +1371,14 @@ module picorv32 #(
 	wire [5:0] cpuregs_raddr2 = ENABLE_REGS_DUALPORT ? decoded_rs2 : 0;
 
 	`PICORV32_REGS cpuregs (
-		.clk      (clk),
-		.resetn   (resetn),
-		.rd_valid (rd_valid),
-		.rd_stall (rd_stall),
-		.wr_valid (wr_valid),
-		.wr_stall (wr_stall),
-		.waddr    (cpuregs_waddr),
-		.raddr1   (cpuregs_raddr1),
-		.raddr2   (cpuregs_raddr2),
-		.wdata    (cpuregs_wrdata),
-		.rdata1   (cpuregs_rdata1),
-		.rdata2   (cpuregs_rdata2)
+		.clk(clk),
+		.wen(resetn && cpuregs_write && latched_rd),
+		.waddr(cpuregs_waddr),
+		.raddr1(cpuregs_raddr1),
+		.raddr2(cpuregs_raddr2),
+		.wdata(cpuregs_wrdata),
+		.rdata1(cpuregs_rdata1),
+		.rdata2(cpuregs_rdata2)
 	);
 
 	always @* begin
@@ -1493,8 +1484,8 @@ module picorv32 #(
 			cpu_state_trap: begin
 				trap <= 1;
 			end
-			
-			cpu_state_fetch: if (!wr_stall) begin
+
+			cpu_state_fetch: begin
 				mem_do_rinst <= !decoder_trigger && !do_waitirq;
 				mem_wordsize <= 0;
 
@@ -1582,7 +1573,7 @@ module picorv32 #(
 				end
 			end
 
-			cpu_state_ld_rs1: if (!rd_stall) begin
+			cpu_state_ld_rs1: begin
 				reg_op1 <= 'bx;
 				reg_op2 <= 'bx;
 
@@ -1762,7 +1753,7 @@ module picorv32 #(
 				endcase
 			end
 
-			cpu_state_ld_rs2: if (!rd_stall) begin
+			cpu_state_ld_rs2: begin
 				`debug($display("LD_RS2: %2d 0x%08x", decoded_rs2, cpuregs_rs2);)
 				reg_sh <= cpuregs_rs2;
 				reg_op2 <= cpuregs_rs2;
@@ -2177,44 +2168,19 @@ endmodule
 // memory resources to implement the processor register file.
 // Note that your implementation must match the requirements of
 // the PicoRV32 configuration. (e.g. QREGS, etc)
-module picorv32_regs #(
-	parameter integer RD_BEATS = 4,   // cycles to serialize a read
-	parameter integer WR_BEATS = 3    // cycles to serialize a write
-)(
-	input  wire        clk,
-	input  wire        resetn,
-
-	input  wire        rd_valid,
-	output wire        rd_stall,
-	input  wire        wr_valid,
-	output wire        wr_stall,
-
-	input  wire [5:0]  waddr,
-	input  wire [5:0]  raddr1,
-	input  wire [5:0]  raddr2,
-	input  wire [31:0] wdata,
-	output wire [31:0] rdata1,
-	output wire [31:0] rdata2
+module picorv32_regs (
+	input clk, wen,
+	input [5:0] waddr,
+	input [5:0] raddr1,
+	input [5:0] raddr2,
+	input [31:0] wdata,
+	output [31:0] rdata1,
+	output [31:0] rdata2
 );
 	reg [31:0] regs [0:30];
-	reg [2:0]  rd_cnt;
-	reg [2:0]  wr_cnt;
 
 	always @(posedge clk)
-		if (!resetn || !rd_valid)    rd_cnt <= 0;
-		else if (rd_cnt < RD_BEATS)  rd_cnt <= rd_cnt + 1'b1;
-
-	always @(posedge clk)
-		if (!resetn || !wr_valid)    wr_cnt <= 0;
-		else if (wr_cnt < WR_BEATS)  wr_cnt <= wr_cnt + 1'b1;
-
-	assign rd_stall = rd_valid && (rd_cnt < RD_BEATS);
-	assign wr_stall = wr_valid && (wr_cnt < WR_BEATS);
-
-	// commit on the cycle the write handshake completes
-	always @(posedge clk)
-		if (wr_valid && !wr_stall)
-			regs[~waddr[4:0]] <= wdata;
+		if (wen) regs[~waddr[4:0]] <= wdata;
 
 	assign rdata1 = regs[~raddr1[4:0]];
 	assign rdata2 = regs[~raddr2[4:0]];
@@ -2231,119 +2197,47 @@ module picorv32_pcpi_mul #(
 ) (
 	input clk, resetn,
 
-	input             pcpi_valid,
-	input      [31:0] pcpi_insn,
-	input      [31:0] pcpi_rs1,
-	input      [31:0] pcpi_rs2,
-	output reg        pcpi_wr,
-	output reg [31:0] pcpi_rd,
-	output reg        pcpi_wait,
-	output reg        pcpi_ready
+	input              pcpi_valid,
+	input      [31:0]  pcpi_insn,
+	input      [31:0]  pcpi_rs1,
+	input      [31:0]  pcpi_rs2,
+	output wire        pcpi_wr,
+	output wire [31:0] pcpi_rd,
+	output wire        pcpi_wait,
+	output wire        pcpi_ready
 );
-	reg instr_mul, instr_mulh, instr_mulhsu, instr_mulhu;
-	wire instr_any_mul = |{instr_mul, instr_mulh, instr_mulhsu, instr_mulhu};
-	wire instr_any_mulh = |{instr_mulh, instr_mulhsu, instr_mulhu};
-	wire instr_rs1_signed = |{instr_mulh, instr_mulhsu};
-	wire instr_rs2_signed = |{instr_mulh};
 
-	reg pcpi_wait_q;
-	wire mul_start = pcpi_wait && !pcpi_wait_q;
+          //Internal variables
+  		// custom instruction (R-Type) for invoking an Approximate Floating Point Multiplication (using DTCL) on a PCPI Co-Processor
+  wire active = pcpi_valid && pcpi_insn[6:0] == 7'b0110011 &&  pcpi_insn[14:12] == 3'b001 && pcpi_insn[31:25] == 7'b0000011; //TODO: Change instruction to something else custom
 
-	always @(posedge clk) begin
-		instr_mul <= 0;
-		instr_mulh <= 0;
-		instr_mulhsu <= 0;
-		instr_mulhu <= 0;
+        FlotiMaX_i1_94v1 FlotiMaX_i1_94v1_inst
+        (
+             .x(pcpi_rs1)
+            ,.y(pcpi_rs2)    
+            ,.z(pcpi_rd)
+        );
 
-		if (resetn && pcpi_valid && pcpi_insn[6:0] == 7'b0110011 && pcpi_insn[31:25] == 7'b0000001) begin
-			case (pcpi_insn[14:12])
-				3'b000: instr_mul <= 1;
-				3'b001: instr_mulh <= 1;
-				3'b010: instr_mulhsu <= 1;
-				3'b011: instr_mulhu <= 1;
-			endcase
-		end
-
-		pcpi_wait <= instr_any_mul;
-		pcpi_wait_q <= pcpi_wait;
-	end
-
-	reg [63:0] rs1, rs2, rd, rdx;
-	reg [63:0] next_rs1, next_rs2, this_rs2;
-	reg [63:0] next_rd, next_rdx, next_rdt;
-	reg [6:0] mul_counter;
-	reg mul_waiting;
-	reg mul_finish;
-	integer i, j;
-
-	// carry save accumulator
-	always @* begin
-		next_rd = rd;
-		next_rdx = rdx;
-		next_rs1 = rs1;
-		next_rs2 = rs2;
-
-		for (i = 0; i < STEPS_AT_ONCE; i=i+1) begin
-			this_rs2 = next_rs1[0] ? next_rs2 : 0;
-			if (CARRY_CHAIN == 0) begin
-				next_rdt = next_rd ^ next_rdx ^ this_rs2;
-				next_rdx = ((next_rd & next_rdx) | (next_rd & this_rs2) | (next_rdx & this_rs2)) << 1;
-				next_rd = next_rdt;
-			end else begin
-				next_rdt = 0;
-				for (j = 0; j < 64; j = j + CARRY_CHAIN)
-					{next_rdt[j+CARRY_CHAIN-1], next_rd[j +: CARRY_CHAIN]} =
-							next_rd[j +: CARRY_CHAIN] + next_rdx[j +: CARRY_CHAIN] + this_rs2[j +: CARRY_CHAIN];
-				next_rdx = next_rdt << 1;
-			end
-			next_rs1 = next_rs1 >> 1;
-			next_rs2 = next_rs2 << 1;
-		end
-	end
-
-	always @(posedge clk) begin
-		mul_finish <= 0;
-		if (!resetn) begin
-			mul_waiting <= 1;
-		end else
-		if (mul_waiting) begin
-			if (instr_rs1_signed)
-				rs1 <= $signed(pcpi_rs1);
-			else
-				rs1 <= $unsigned(pcpi_rs1);
-
-			if (instr_rs2_signed)
-				rs2 <= $signed(pcpi_rs2);
-			else
-				rs2 <= $unsigned(pcpi_rs2);
-
-			rd <= 0;
-			rdx <= 0;
-			mul_counter <= (instr_any_mulh ? 63 - STEPS_AT_ONCE : 31 - STEPS_AT_ONCE);
-			mul_waiting <= !mul_start;
-		end else begin
-			rd <= next_rd;
-			rdx <= next_rdx;
-			rs1 <= next_rs1;
-			rs2 <= next_rs2;
-
-			mul_counter <= mul_counter - STEPS_AT_ONCE;
-			if (mul_counter[6]) begin
-				mul_finish <= 1;
-				mul_waiting <= 1;
-			end
-		end
-	end
-
-	always @(posedge clk) begin
-		pcpi_wr <= 0;
-		pcpi_ready <= 0;
-		if (mul_finish && resetn) begin
-			pcpi_wr <= 1;
-			pcpi_ready <= 1;
-			pcpi_rd <= instr_any_mulh ? rd >> 32 : rd;
-		end
-	end
+        always @(posedge clk) begin
+                pcpi_ready <= 0;
+                pcpi_wr <= 0;
+                pcpi_wait <= 0;
+				`ifdef PCPI_COUNT
+				if (!resetn) begin
+				fpmulx_count <= 0;
+				end
+				`endif
+				if (active) begin
+						// $display("ACTIVE: picorv32_pcpi_fpmul_approx");
+                        pcpi_ready <= 1;
+                        pcpi_wr <= 1;
+						`fp_count($display("FPMUL_APPROX Completed.");)
+						`ifdef PCPI_COUNT
+							fpmulx_count <= fpmulx_count + 1;
+						`endif
+						// $display("FPMUL_APPROX input a: %h, input b: %h, external output z: %h", pcpi_rs1, pcpi_rs2, pcpi_rd);
+                end
+        end
 endmodule
 
 module picorv32_pcpi_fast_mul #(
@@ -2551,7 +2445,7 @@ module picorv32_axi #(
 	parameter NODE_ID = 0,
 	parameter [ 0:0] ENABLE_COUNTERS = 0,
 	parameter [ 0:0] ENABLE_COUNTERS64 = 0,
-	parameter [ 0:0] ENABLE_REGS_16_31 = 1,
+	parameter [ 0:0] ENABLE_REGS_16_31 = 0,
 	parameter [ 0:0] ENABLE_REGS_DUALPORT = 0,
 	parameter [ 0:0] TWO_STAGE_SHIFT = 0,
 	parameter [ 0:0] BARREL_SHIFTER = 0,
@@ -2559,14 +2453,14 @@ module picorv32_axi #(
 	parameter [ 0:0] TWO_CYCLE_ALU = 0,
 	parameter [ 0:0] COMPRESSED_ISA = 0,
 	parameter [ 0:0] CATCH_MISALIGN = 0,
-	parameter [ 0:0] CATCH_ILLINSN = 1,
+	parameter [ 0:0] CATCH_ILLINSN = 0,
 	parameter [ 0:0] ENABLE_PCPI = 1,
 	parameter [ 0:0] ENABLE_MUL = 1,
 	parameter [ 0:0] ENABLE_FAST_MUL = 0,
 	parameter [ 0:0] ENABLE_DIV = 0,
 	parameter [ 0:0] ENABLE_IRQ = 0,
-	parameter [ 0:0] ENABLE_IRQ_QREGS = 1,
-	parameter [ 0:0] ENABLE_IRQ_TIMER = 1,
+	parameter [ 0:0] ENABLE_IRQ_QREGS = 0,
+	parameter [ 0:0] ENABLE_IRQ_TIMER = 0,
 	parameter [ 0:0] ENABLE_TRACE = 0,
 	parameter [ 0:0] REGS_INIT_ZERO = 0,
 	parameter [31:0] MASKED_IRQ = 32'h 0000_0000,
@@ -2655,7 +2549,7 @@ module picorv32_axi #(
 	wire        mem_ready;
 	wire [31:0] mem_rdata;
 
-	assign irq = 0;
+
 	// AXI4-lite master memory interface
 	picorv32_axi_adapter axi_adapter (
 		.clk            (clk            ),
@@ -2894,3 +2788,417 @@ module picorv32_axi_adapter (
     end
     endmodule
 
+//////////////////////////////////////////////////////////////////////////////////
+// Company: EclectX, Heidelberg University
+// Engineer: Nima Amirafshar
+// 
+// Create Date: 09/30/2025 06:21:27 PM
+// Design Name: 
+// Module Name: FlotiMaX_i1_94v1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+module FlotiMaX_i1_94v1(x,y,z);
+
+input [31:0] x,y;
+output [31:0] z;
+
+wire [22:0] Tz;
+wire ctrl;
+wire [7:0] Ez;
+
+Significand_T1Hx   sig(x[22:0], y[22:0], Tz, ctrl);
+Exponent           exp(x[30:23], y[30:23], ctrl, Ez);
+
+assign z[22:0]  = Tz;
+assign z[30:23] = Ez;
+
+xor(z[31], x[31], y[31]);
+
+endmodule
+
+
+
+module Exponent(Ex, Ey, s, Ez);
+
+input [7:0] Ex, Ey;
+input s;
+output [7:0] Ez;
+
+wire [8:0] result1,result2,result3;
+
+RCA8 rca1(Ex, Ey, 1'b0, result1);
+RCA8 rca2(result1[7:0], 8'b10000001, 1'b0, result2);
+RCA8 rca3(result1[7:0], 8'b10000010, 1'b0, result3);
+
+MUX21_8 mux(result3[7:0], result2[7:0], s, Ez);
+
+endmodule
+
+module RCA8(a,b,cin,result);
+
+input [7:0] a,b;
+input cin;
+output [8:0] result;
+
+wire [7:0] sum;
+wire [8:1] cout;
+
+full_adder f0(a[0], b[0], cin    , sum[0], cout[1]);
+full_adder f1(a[1], b[1], cout[1], sum[1], cout[2]);
+full_adder f2(a[2], b[2], cout[2], sum[2], cout[3]);
+full_adder f3(a[3], b[3], cout[3], sum[3], cout[4]);
+full_adder f4(a[4], b[4], cout[4], sum[4], cout[5]);
+full_adder f5(a[5], b[5], cout[5], sum[5], cout[6]);
+full_adder f6(a[6], b[6], cout[6], sum[6], cout[7]);
+full_adder f7(a[7], b[7], cout[7], sum[7], cout[8]);
+
+assign result[7:0] = sum;
+assign result[8] = cout[8];
+
+
+endmodule
+
+module full_adder(a,b,Cin,sum,Cout);
+
+	input a,b,Cin;
+	output sum,Cout;
+	
+	wire w1,w2,w3;
+	
+	xor(w1,a,b);
+	xor(sum,w1,Cin);
+	and(w2,a,b);
+	and(w3,w1,Cin);
+	or(Cout,w3,w2);
+	
+endmodule
+
+module MUX21_8(a, b, s, out);
+
+input [7:0] a, b;
+input s;
+output [7:0] out;
+
+assign out = s ? a : b ;
+
+endmodule
+
+module Significand_T1Hx(Tx,Ty,Tz,ctrl);
+
+input [22:0] Tx,Ty;
+output [22:0] Tz;
+output ctrl;
+
+wire [15:0] result1;
+wire [22:0] result2;
+
+TIM1_Hx      m1({1'b1,Tx}, {1'b1,Ty}, result1);
+MUX21_23     mux1({result1[14:0],8'b0}, {result1[13:0],9'b0}, result1[15], result2);
+
+assign Tz = result2;
+
+assign ctrl = result1[15];
+
+endmodule
+
+module MUX21_23(a, b, s, out);
+
+input [22:0] a, b;
+input s;
+output [22:0] out;
+
+assign out = s ? a : b ;
+
+endmodule
+
+module TIM1_Hx(c,d,result);
+
+	input  [23:0]  c;
+	input  [23:0]  d;
+	output [15:0] result;
+	
+	wire [15:0] result9;
+	
+	PRIM8_94R8   m9(c[23:16] , d[23:16] , result9);
+	
+	assign result = result9;
+	
+endmodule
+
+module PRIM8_94R8(c,d,resultX);
+
+	input  [7:0] c;
+	input  [7:0] d;
+	output [15:0] resultX;
+	
+	wire [11:0] rA; 
+	wire [11:0] rB;
+	
+	OCDGroupX9 gA(c,d[3:0],rA);
+	OCDGroupX4 gB(c,d[7:4],rB);
+	
+	assign resultX[3:0] = rA[3:0];
+	
+	or(resultX[4],  rA[4]  ,rB[0]);
+	or(resultX[5],  rA[5]  ,rB[1]);
+	or(resultX[6],  rA[6]  ,rB[2]);
+	or(resultX[7],  rA[7]  ,rB[3]);
+	or(resultX[8],  rA[8]  ,rB[4]);
+	or(resultX[9],  rA[9]  ,rB[5]);
+	or(resultX[10], rA[10] ,rB[6]);
+	or(resultX[11], rA[11] ,rB[7]);
+
+	assign resultX[15:12] =  rB[11:8];
+
+endmodule
+
+module OCDGroupX9(c,d,resultX);
+
+	input  [7:0]  c;
+	input  [3:0]  d;
+	output [11:0] resultX;
+	
+	wire w0  [7:0];
+	wire w11 [7:0];
+	wire w12 [7:0];
+	wire w13 [7:0];
+	wire w14 [7:0];
+	wire w21 [7:0];
+	wire w22 [7:0];
+	wire w23 [7:0];
+	wire w24 [7:0];
+	wire w31 [7:0];
+	wire w32 [7:0];
+	wire w33 [7:0];
+	wire w34 [7:0];
+	
+	//row0
+	and(w0[0],c[0],d[0]);
+	and(w0[1],c[1],d[0]);
+	and(w0[2],c[2],d[0]);
+	and(w0[3],c[3],d[0]);
+	and(w0[4],c[4],d[0]);
+	and(w0[5],c[5],d[0]);
+	and(w0[6],c[6],d[0]);
+	and(w0[7],c[7],d[0]);
+	
+	assign resultX[0] = w0[0];
+	
+	OCDP1 OCD1(c[0],d[1]  ,w0[1],w13[0],w11[0],resultX[1]);
+	OCDP2 OCD2(c[1],w11[0],w13[0],d[2],w0[2],w13[1],w11[1],w23[0],w21[0],resultX[2]);
+	OCDP3 OCD3(c[2],w11[1],w13[1],w21[0],w23[0],d[3]  ,w0[3],w13[2],w11[2],w23[1],w21[1],w33[0],w31[0],resultX[3]);
+	OCDP3 OCD4(c[3],w11[2],w13[2],w21[1],w23[1],w31[0],w0[4],w13[3],w11[3],w23[2],w21[2],w33[1],w31[1],resultX[4]);
+	OCDP3 OCD5(c[4],w11[3],w13[3],w21[2],w23[2],w31[1],w0[5],w13[4],w11[4],w23[3],w21[3],w33[2],w31[2],resultX[5]);
+	OCDP3 OCD6(c[5],w11[4],w13[4],w21[3],w23[3],w31[2],w0[6],w13[5],w11[5],w23[4],w21[4],w33[3],w31[3],resultX[6]);
+	OCDP3 OCD7(c[6],w11[5],w13[5],w21[4],w23[4],w31[3],w0[7],w13[6],w11[6],w23[5],w21[5],w33[4],w31[4],resultX[7]);
+	
+	and(w14[7],c[7],w11[6]);
+	
+	OCDP2 OCD8(w13[6],w21[5],w23[5],w31[4],w14[7],w23[6],w21[6],w33[5],w31[5],resultX[8]);
+	
+	and(w24[7],c[7],w21[6]);
+	
+	PPUH  ph36(w23[6],w31[5],w24[7],w33[6],w31[6],w32[6],w34[6]);
+	PPUH  ph37(c[7],w31[6],w32[6],w33[7],w31[7],w32[7],w34[7]);
+	
+	assign resultX[9]  = w34[6];
+	assign resultX[10] = w34[7];
+	assign resultX[11] = w32[7];
+	
+endmodule
+
+module OCDGroupX4(c,d,resultX);
+
+	input  [7:0]  c;
+	input  [3:0]  d;
+	output [11:0] resultX;
+	
+	wire w0  [7:0];
+	wire w11 [7:0];
+	wire w12 [7:0];
+	wire w13 [7:0];
+	wire w14 [7:0];
+	wire w21 [7:0];
+	wire w22 [7:0];
+	wire w23 [7:0];
+	wire w24 [7:0];
+	wire w31 [7:0];
+	wire w32 [7:0];
+	wire w33 [7:0];
+	wire w34 [7:0];
+	
+	//row0
+	and(w0[0],c[0],d[0]);
+	and(w0[1],c[1],d[0]);
+	and(w0[2],c[2],d[0]);
+	and(w0[3],c[3],d[0]);
+	and(w0[4],c[4],d[0]);
+	and(w0[5],c[5],d[0]);
+	and(w0[6],c[6],d[0]);
+	and(w0[7],c[7],d[0]);
+	
+	assign resultX[0] = w0[0];
+	
+	
+	OCDP1 OCD1(c[0],d[1]  ,w0[1],w13[0],w11[0],resultX[1]);
+	OCDP2 OCD2(c[1],w11[0],w13[0],d[2],w0[2],w13[1],w11[1],w23[0],w21[0],resultX[2]);
+	OCDP3 OCD3(c[2],w11[1],w13[1],w21[0],w23[0],d[3],w0[3],w13[2],w11[2],w23[1],w21[1],w33[0],w31[0],resultX[3]);
+	
+	PPUF pf(c[3],w11[2],w13[2],w21[1],w0[4],w13[3],w11[3],w23[2],w21[2],w22[2],w24[2]);
+	
+	PPUH  ph31(w23[1],w31[0],w24[2],w33[1],w31[1],w32[1],resultX[4]);
+	
+	PPUH  ph14(c[4],w11[3],w0[5],w13[4],w11[4],w12[4],w14[4]);
+	
+	ppu   p15(c[5],w11[4],w12[4],w0[6],w13[5],w11[5],w12[5],w14[5]);
+	ppu   p16(c[6],w11[5],w12[5],w0[7],w13[6],w11[6],w12[6],w14[6]);
+	ppu   p17(c[7],w11[6],w12[6],1'b0 ,w13[7],w11[7],w12[7],w14[7]);
+	
+	ppu p23(w13[3],w21[2],w22[2],w14[4],w23[3],w21[3],w22[3],w24[3]);
+	ppu p24(w13[4],w21[3],w22[3],w14[5],w23[4],w21[4],w22[4],w24[4]);
+	ppu p25(w13[5],w21[4],w22[4],w14[6],w23[5],w21[5],w22[5],w24[5]);
+	ppu p26(w13[6],w21[5],w22[5],w14[7],w23[6],w21[6],w22[6],w24[6]);
+	ppu p27(w13[7],w21[6],w22[6],w12[7],w23[7],w21[7],w22[7],w24[7]);
+	
+	ppu p32(w23[2],w31[1],w32[1],w24[3],w33[2],w31[2],w32[2],w34[2]);
+	ppu p33(w23[3],w31[2],w32[2],w24[4],w33[3],w31[3],w32[3],w34[3]);
+	ppu p34(w23[4],w31[3],w32[3],w24[5],w33[4],w31[4],w32[4],w34[4]);
+	ppu p35(w23[5],w31[4],w32[4],w24[6],w33[5],w31[5],w32[5],w34[5]);
+	ppu p36(w23[6],w31[5],w32[5],w24[7],w33[6],w31[6],w32[6],w34[6]);
+	ppu p37(w23[7],w31[6],w32[6],w22[7],w33[7],w31[7],w32[7],w34[7]);
+	
+	assign resultX[5]  = w34[2];
+	assign resultX[6]  = w34[3];
+	assign resultX[7]  = w34[4];
+	assign resultX[8]  = w34[5];
+	assign resultX[9]  = w34[6];
+	assign resultX[10] = w34[7];
+	assign resultX[11] = w32[7];
+	
+endmodule
+
+module OCDP1(ai,bi,Sin,ao,bo,Sout);
+
+	input  ai,bi,Sin;
+	output ao,bo,Sout;
+	
+	wire m;
+	
+	assign ao = ai;
+	assign bo = bi;
+	and(m,ai,bi);
+	or(Sout,Sin,m);
+	
+endmodule
+
+module OCDP2(ai,bi,aj,bj,Sin,ao,bo,ajo,bjo,Sout);
+
+	input  ai,bi,aj,bj,Sin;
+	output ao,bo,ajo,bjo,Sout;
+	
+	wire mi,mj,st;
+	
+	assign  ao = ai;
+	assign  bo = bi;
+	assign ajo = aj;
+	assign bjo = bj;
+	
+	and(mi,ai,bi);
+	and(mj,aj,bj);
+	
+	or(st,mi,mj);
+	or(Sout,Sin,st);
+
+
+endmodule
+
+module OCDP3(a1i,b1i,a2i,b2i,a3i,b3i,Sin,a1o,b1o,a2o,b2o,a3o,b3o,Sout);
+
+	input  a1i,b1i,a2i,b2i,a3i,b3i,Sin;
+	output a1o,b1o,a2o,b2o,a3o,b3o,Sout;
+	
+	wire m1,m2,m3,s1,s2;
+	
+	assign a1o = a1i;
+	assign b1o = b1i;
+	assign a2o = a2i;
+	assign b2o = b2i;
+	assign a3o = a3i;
+	assign b3o = b3i;
+	
+	and(m1,a1i,b1i);
+	and(m2,a2i,b2i);
+	and(m3,a3i,b3i);
+	
+	or(s1,Sin,m1);
+	or(s2,m2,m3);
+	or(Sout,s1,s2);
+
+endmodule
+
+module PPUF(ai,bi,aj,bj,Sin,ao,bo,ajo,bjo,Cout,Sout);
+
+	input  ai,bi,aj,bj,Sin;
+	output ao,bo,ajo,bjo,Cout,Sout;
+	
+	wire m1,m2;
+	
+	assign ao = ai;
+	assign bo = bi;
+	assign ajo = aj;
+	assign bjo = bj;
+	and(m1,ai,bi);
+	and(m2,aj,bj);
+	full_adder h0(Sin,m1,m2,Sout,Cout);
+	
+endmodule
+
+module PPUH(ai,bi,Sin,ao,bo,Cout,Sout);
+
+	input  ai,bi,Sin;
+	output ao,bo,Cout,Sout;
+	
+	wire m;
+	
+	assign ao = ai;
+	assign bo = bi;
+	and(m,ai,bi);
+	half_adder h0(Sin,m,Sout,Cout);
+	
+endmodule
+
+module ppu(Ci,Di,Cin,Sin,Co,Do,Cout,Sout);
+
+	input Ci,Di,Sin,Cin;
+	output Co,Do,Cout,Sout;
+	
+	wire m;
+	
+	assign Do = Di;
+	assign Co = Ci;
+	and(m,Ci,Di);
+	full_adder f0(m,Sin,Cin,Sout,Cout);
+	
+endmodule
+
+module half_adder(a,b,sum,Cout);
+
+	input  a,b;
+	output sum,Cout;
+	
+	xor(sum,a,b);
+	and(Cout,a,b);
+
+
+endmodule
