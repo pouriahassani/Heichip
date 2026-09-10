@@ -110,28 +110,6 @@ composes with surrounding code and stays inside x0 to x15 automatically. For
 because binutils has no name for the encoding. That affects the disassembly
 listing only.
 
-### Accuracy
-
-Measured directly from `FlotiMaX_i1_94v1`. The result is exact when the
-mantissa product needs no rounding, and otherwise carries a consistent
-negative bias.
-
-| x | y | result | exact | relative error |
-|---|---|---|---|---|
-| 1.0 | 2.0 | 2.0 | 2.0 | 0 |
-| 2.0 | 2.0 | 4.0 | 4.0 | 0 |
-| 1.5 | 1.5 | 2.25 | 2.25 | 0 |
-| 10.0 | 10.0 | 100.0 | 100.0 | 0 |
-| -1.0 | 3.0 | -3.0 | -3.0 | 0 |
-| pi | pi | 9.4243 | 9.8696 | -4.5% |
-| sqrt2 | sqrt2 | 1.9368 | 2.0 | -3.2% |
-| 30.0 | 50.0 | 1468.0 | 1500.0 | -2.1% |
-
-Worst observed relative error is about 4.5%.
-
-`pcpi_rd` is combinational from `pcpi_rs1` and `pcpi_rs2` through the whole
-FlotiMaX array into the core's `reg_out`. This is the path most likely to
-limit the achievable clock frequency.
 
 ---
 
@@ -236,8 +214,8 @@ A prebuilt image with the toolchain is available so the toolchain does not
 have to be installed by hand:
 
 ```sh
-docker pull poria1996214/AxE:claude
-docker run -it --rm -v "$PWD":/work -w /work poria1996214/AxE:claude
+docker pull poria19964214/axe:dev-claude
+docker run -it -v $(pwd):/home/axe/workspace poria19964214/axe:dev-claude
 ```
 
 ---
@@ -326,8 +304,13 @@ anything else written during the previous run persists.
 ### Loading the firmware into block RAM
 
 The program is written into the block RAM initialisation of an already built
-bitstream with `updatemem`. Synthesis and implementation are not re-run.
-
+bitstream with `updatemem`. Synthesis and implementation are not re-run. There is 
+tcl script called `write_mmi_fixed.tcl`. You need to source it in the viviado tcl consule. 
+the you need to generate the `blk_mem_gen_0` with `write_mmi` command. Then use the `updatemem`
+tool to intilize the block mem. Follow the commands below:
+```sh
+source write_mmi_fixed.tcl
+write_mmi blk_mem_gen_0
 ```sh
 updatemem -meminfo design.mmi \
           -data    uart_test.elf \
@@ -342,42 +325,6 @@ platform from that XSA. If the XSA is exported from the original bitstream,
 the Vitis run configuration will reprogram the FPGA with it and overwrite the
 firmware.
 
-Two points that commonly cause trouble with a non-MicroBlaze core:
 
-- Vivado's `write_mem_info` does not generate an `.mmi` for a custom core. It
-  has to be written by hand, listing every block RAM primitive backing the
-  256 KiB region, the bit lanes each one drives, and an `ADDRESS_SPACE` range
-  of `0x00000000` to `0x0003FFFF` to match `linker.ld`.
-- The `-proc` argument must match the `INSTANCE_PATH` in the `.mmi`, not the
-  instance name in the RTL.
 
 ---
-
-## Known constraints
-
-**The ZYNQ7 block must use the Zybo Z7-20 board preset.** A PS7 built from
-defaults configures 512 MiB of DDR while the board carries 1 GiB, which means
-the DDR controller is programmed for the wrong part: wrong row, column and
-bank widths, wrong timing, wrong training values. The symptom is an
-application that works under the debugger and fails when run. Check the
-generated `xparameters.h`:
-
-```c
-#define XPAR_PS7_DDR_0_HIGHADDRESS 0x3fffffff   /* correct, 1 GiB   */
-#define XPAR_PS7_DDR_0_HIGHADDRESS 0x1fffffff   /* wrong,   512 MiB */
-```
-
-A correctly configured PS7 also produces `XPAR_XEMACPS_NUM_INSTANCES`,
-`XPAR_XGPIOPS_NUM_INSTANCES`, `XPAR_XQSPIPS_NUM_INSTANCES`,
-`XPAR_XSDPS_NUM_INSTANCES` and `XPAR_XUSBPS_NUM_INSTANCES`. If those are
-absent, the preset was not applied. Add UART0 on EMIO on top of the preset
-rather than building the PS7 from defaults.
-
-**Slave errors are silent.** The AXI adapter does not read `m_axi_rresp` and
-has no `bresp` port. An access outside both address ranges returns DECERR from
-the SmartConnect and the core receives it as ordinary data. It does not trap
-or hang, it continues with a wrong value.
-
-**Both ends of the address decode must agree.** `linker.ld`, `UART_BASE` in
-`uart_driver.h`, and the Vivado address editor all describe the same map. A
-change in one requires a change in the others.
