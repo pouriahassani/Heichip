@@ -1,0 +1,4 @@
+/home/pouria/Desktop/codes/FPGA/VITIS/hcTst1v1/hcTst1v1/zynq_fsbl/build/CMakeFiles/fsbl.elf.dir
+/home/pouria/Desktop/codes/FPGA/VITIS/hcTst1v1/hcTst1v1/zynq_fsbl/build/CMakeFiles/print_build_info.dir
+/home/pouria/Desktop/codes/FPGA/VITIS/hcTst1v1/hcTst1v1/zynq_fsbl/build/CMakeFiles/edit_cache.dir
+/home/pouria/Desktop/codes/FPGA/VITIS/hcTst1v1/hcTst1v1/zynq_fsbl/build/CMakeFiles/rebuild_cache.dir

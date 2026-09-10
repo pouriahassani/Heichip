@@ -1,0 +1,116 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Fri Sep  4 10:19:01 2026
+# Process ID         : 14164
+# Current directory  : C:/Users/GP/Desktop/FPGA/heichip_1v0
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent21552 C:\Users\GP\Desktop\FPGA\heichip_1v0\heichip_1v0.xpr
+# Log file           : C:/Users/GP/Desktop/FPGA/heichip_1v0/vivado.log
+# Journal file       : C:/Users/GP/Desktop/FPGA/heichip_1v0\vivado.jou
+# Running On         : DESKTOP-7K916Q2
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : 13th Gen Intel(R) Core(TM) i7-1355U
+# CPU Frequency      : 2611 MHz
+# CPU Physical cores : 10
+# CPU Logical cores  : 12
+# Host memory        : 16836 MB
+# Swap memory        : 11274 MB
+# Total Virtual      : 28111 MB
+# Available Virtual  : 8302 MB
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.xpr
+update_compile_order -fileset sources_1
+close [ open C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v w ]
+add_files C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v
+update_compile_order -fileset sources_1
+close [ open C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.srcs/sources_1/new/fpga_interface.v w ]
+add_files C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.srcs/sources_1/new/fpga_interface.v
+update_compile_order -fileset sources_1
+close [ open C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.srcs/sources_1/new/pico_adapter_to_fpga.v w ]
+add_files C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.srcs/sources_1/new/pico_adapter_to_fpga.v
+update_compile_order -fileset sources_1
+add_files -norecurse -scan_for_includes C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.srcs/sources_1/new/pico_adapter_to_fpga.v
+close [ open C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.srcs/sources_1/new/pico_memory_2_axi.v w ]
+add_files C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.srcs/sources_1/new/pico_memory_2_axi.v
+update_compile_order -fileset sources_1
+close [ open C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.srcs/sources_1/new/TOP.v w ]
+add_files C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.srcs/sources_1/new/TOP.v
+update_compile_order -fileset sources_1
+open_bd_design {C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.srcs/sources_1/bd/design_1/design_1.bd}
+delete_bd_objs [get_bd_nets picorv32_axi_0_trap] [get_bd_intf_nets picorv32_axi_0_m_axi] [get_bd_cells picorv32_axi_0]
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top pico_fpga_axi [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+synth_design -top pico_fpga_axi -part xc7z020clg400-1 -lint 
+update_compile_order -fileset sources_1
+synth_design -top pico_fpga_axi -part xc7z020clg400-1 -lint 
+synth_design -top pico_fpga_axi -part xc7z020clg400-1 -lint 
+create_bd_cell -type module -reference pico_fpga_axi pico_fpga_axi_0
+set_property location {1.5 555 434} [get_bd_cells pico_fpga_axi_0]
+connect_bd_intf_net [get_bd_intf_pins pico_fpga_axi_0/m_axi] [get_bd_intf_pins smartconnect_0/S00_AXI]
+connect_bd_net [get_bd_pins pico_fpga_axi_0/clk] [get_bd_pins processing_system7_0/FCLK_CLK0]
+connect_bd_net [get_bd_pins pico_fpga_axi_0/resetn] [get_bd_pins proc_sys_reset_0/interconnect_aresetn]
+delete_bd_objs [get_bd_ports trap_0]
+startgroup
+make_bd_pins_external  [get_bd_pins pico_fpga_axi_0/trap]
+endgroup
+regenerate_bd_layout
+assign_bd_address
+set_property offset 0 [get_bd_addr_segs {pico_fpga_axi_0/m_axi/SEG_axi_bram_ctrl_0_Mem0}]
+set_property range 256K [get_bd_addr_segs {pico_fpga_axi_0/m_axi/SEG_axi_bram_ctrl_0_Mem0}]
+validate_bd_design
+make_wrapper -files [get_files C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.srcs/sources_1/bd/design_1/design_1.bd] -top
+reset_run synth_1
+update_module_reference design_1_pico_fpga_axi_0_0
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+launch_runs impl_1 -jobs 6
+wait_on_run impl_1
+reset_run impl_1
+launch_runs impl_1 -jobs 6
+wait_on_run impl_1
+validate_bd_design
+make_wrapper -files [get_files C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.srcs/sources_1/bd/design_1/design_1.bd] -top
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+update_module_reference design_1_pico_fpga_axi_0_0
+update_module_reference design_1_pico_fpga_axi_0_0
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top design_1_wrapper [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+open_run impl_1
+source write_mmi
+source write_mmi_fixed
+source C:/Users/GP/Desktop/FPGA/4_nodes_working_file_load_impl/write_mmi_fixed.tcl
+write_mmi blk_mem_gen_0
+write_mmi C:/Users/GP/Desktop/FPGA/4_nodes_working_file_load_impl/blk_mem_gen_0
+write_mmi C:/Users/GP/Desktop/FPGA/heichip_1v0/blk_mem_gen_0
+write_mmi blk_mem_gen_0
+write_mmi C:/Users/GP/Desktop/FPGA/heichip_1v0/blk_mem_gen_0
+pwd
+write_mmi blk_mem_gen_0
+source C:/Users/GP/Desktop/FPGA/heichip_1v/write_mmi_fixed.tcl
+ls
+source C:/Users/GP/Desktop/FPGA/heichip_1v0/write_mmi_fixed.tcl
+write_mmi blk_mem_gen_0
+updatemem -force -meminfo blk_mem_gen_0.mmi -data C:/Users/GP/Desktop/FPGA/heichip_1v0/firmware.elf -bit C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.runs/impl_1/design_1_wrapper.bit -proc dummy -out C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.runs/impl_1/design_1_wrapper.bit
+write_hw_platform -fixed -include_bit -force -file C:/Users/GP/Desktop/FPGA/heichip_1v0/hcTst.xsa
+open_bd_design {C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.srcs/sources_1/bd/design_1/design_1.bd}

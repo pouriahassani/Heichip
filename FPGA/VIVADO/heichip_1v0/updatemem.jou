@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# updatemem v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Thu Sep 10 10:38:47 2026
+# Process ID         : 3274078
+# Current directory  : /home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0
+# Command line       : updatemem -mode batch -source /home/pouria/2025.2/Vivado/scripts/updatemem/main.tcl -notrace -tclargs -meminfo blk_mem_gen_0.mmi -data /home/pouria/Desktop/codes/axeworkspace/ECLECTX_AXE/AxE/uart_test_fpapprox_rv32ie/uart_test.elf -proc dummy -bit /home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.runs/impl_1/design_1_wrapper.bit -out /home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.runs/impl_1/design_1_wrapper.bit -force
+# Log file           : /home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/updatemem.log
+# Journal file       : /home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/updatemem.jou
+# Running On         : pouria-HP-Elite-Tower-800-G9-Desktop-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 22.04.3 LTS
+# Processor Detail   : 12th Gen Intel(R) Core(TM) i9-12900
+# CPU Frequency      : 4282.728 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 24
+# Host memory        : 67072 MB
+# Swap memory        : 23232 MB
+# Total Virtual      : 90304 MB
+# Available Virtual  : 62883 MB
+#-----------------------------------------------------------
+source /home/pouria/2025.2/Vivado/scripts/updatemem/main.tcl -notrace

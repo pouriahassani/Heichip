@@ -1,0 +1,603 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Wed Sep  9 16:03:01 2026
+# Process ID         : 1724715
+# Current directory  : /home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.runs/design_1_pico_fpga_axi_0_0_synth_1
+# Command line       : vivado -log design_1_pico_fpga_axi_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_pico_fpga_axi_0_0.tcl
+# Log file           : /home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.runs/design_1_pico_fpga_axi_0_0_synth_1/design_1_pico_fpga_axi_0_0.vds
+# Journal file       : /home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.runs/design_1_pico_fpga_axi_0_0_synth_1/vivado.jou
+# Running On         : pouria-HP-Elite-Tower-800-G9-Desktop-PC
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 22.04.3 LTS
+# Processor Detail   : 12th Gen Intel(R) Core(TM) i9-12900
+# CPU Frequency      : 4250.931 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 24
+# Host memory        : 67072 MB
+# Swap memory        : 23232 MB
+# Total Virtual      : 90304 MB
+# Available Virtual  : 62618 MB
+#-----------------------------------------------------------
+source design_1_pico_fpga_axi_0_0.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/pouria/2025.2/data/ip'.
+Command: synth_design -top design_1_pico_fpga_axi_0_0 -part xc7z020clg400-1 -incremental_mode off -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Device 21-403] Loading part xc7z020clg400-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 1725183
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2229.250 ; gain = 484.961 ; free physical = 5520 ; free virtual = 54604
+---------------------------------------------------------------------------------
+INFO: [Synth 8-11241] undeclared symbol 'dbg_uo_out', assumed default net type 'wire' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/TOP.v:77]
+INFO: [Synth 8-6157] synthesizing module 'design_1_pico_fpga_axi_0_0' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.gen/sources_1/bd/design_1/ip/design_1_pico_fpga_axi_0_0/synth/design_1_pico_fpga_axi_0_0.v:53]
+INFO: [Synth 8-6157] synthesizing module 'pico_fpga_axi' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/TOP.v:22]
+	Parameter REG_WINDOW bound to: 1 - type: integer 
+	Parameter REG_ADDR_HI bound to: 16'b0000000000000000 
+	Parameter PROGADDR_RESET bound to: 0 - type: integer 
+	Parameter STACKADDR bound to: 16384 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'RiMaX' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v:14]
+	Parameter REG_WINDOW bound to: 1 - type: integer 
+	Parameter REG_ADDR_HI bound to: 16'b0000000000000000 
+	Parameter PROGADDR_RESET bound to: 0 - type: integer 
+	Parameter STACKADDR bound to: 16384 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'picorv32' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:62]
+	Parameter ENABLE_COUNTERS bound to: 1'b0 
+	Parameter ENABLE_REGS_16_31 bound to: 1'b0 
+	Parameter BARREL_SHIFTER bound to: 1'b0 
+	Parameter COMPRESSED_ISA bound to: 1'b0 
+	Parameter ENABLE_PCPI bound to: 1'b1 
+	Parameter ENABLE_MUL bound to: 1'b1 
+	Parameter ENABLE_FAST_MUL bound to: 1'b0 
+	Parameter ENABLE_DIV bound to: 1'b0 
+	Parameter ENABLE_IRQ bound to: 1'b0 
+	Parameter PROGADDR_RESET bound to: 0 - type: integer 
+	Parameter STACKADDR bound to: 16384 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'picorv32_pcpi_mul' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2196]
+INFO: [Synth 8-6157] synthesizing module 'FlotiMaX_i1_94v1' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2457]
+INFO: [Synth 8-6157] synthesizing module 'Significand_T1Hx' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2543]
+INFO: [Synth 8-6157] synthesizing module 'TIM1_Hx' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2571]
+INFO: [Synth 8-6157] synthesizing module 'PRIM8_94R8' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2585]
+INFO: [Synth 8-6157] synthesizing module 'OCDGroupX9' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2612]
+INFO: [Synth 8-6157] synthesizing module 'OCDP1' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2737]
+INFO: [Synth 8-6155] done synthesizing module 'OCDP1' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2737]
+INFO: [Synth 8-6157] synthesizing module 'OCDP2' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2751]
+INFO: [Synth 8-6155] done synthesizing module 'OCDP2' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2751]
+INFO: [Synth 8-6157] synthesizing module 'OCDP3' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2772]
+INFO: [Synth 8-6155] done synthesizing module 'OCDP3' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2772]
+INFO: [Synth 8-6157] synthesizing module 'PPUH' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2813]
+INFO: [Synth 8-6157] synthesizing module 'half_adder' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2841]
+INFO: [Synth 8-6155] done synthesizing module 'half_adder' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2841]
+INFO: [Synth 8-6155] done synthesizing module 'PPUH' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2813]
+INFO: [Synth 8-6155] done synthesizing module 'OCDGroupX9' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2612]
+INFO: [Synth 8-6157] synthesizing module 'OCDGroupX4' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2667]
+INFO: [Synth 8-6157] synthesizing module 'PPUF' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2796]
+INFO: [Synth 8-6157] synthesizing module 'full_adder' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2518]
+INFO: [Synth 8-6155] done synthesizing module 'full_adder' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2518]
+INFO: [Synth 8-6155] done synthesizing module 'PPUF' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2796]
+INFO: [Synth 8-6157] synthesizing module 'ppu' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2827]
+INFO: [Synth 8-6155] done synthesizing module 'ppu' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2827]
+INFO: [Synth 8-6155] done synthesizing module 'OCDGroupX4' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2667]
+INFO: [Synth 8-6155] done synthesizing module 'PRIM8_94R8' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2585]
+INFO: [Synth 8-6155] done synthesizing module 'TIM1_Hx' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2571]
+INFO: [Synth 8-6157] synthesizing module 'MUX21_23' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2561]
+INFO: [Synth 8-6155] done synthesizing module 'MUX21_23' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2561]
+INFO: [Synth 8-6155] done synthesizing module 'Significand_T1Hx' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2543]
+INFO: [Synth 8-6157] synthesizing module 'Exponent' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2478]
+INFO: [Synth 8-6157] synthesizing module 'RCA8' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2494]
+INFO: [Synth 8-6155] done synthesizing module 'RCA8' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2494]
+INFO: [Synth 8-6157] synthesizing module 'MUX21_8' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2533]
+INFO: [Synth 8-6155] done synthesizing module 'MUX21_8' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2533]
+INFO: [Synth 8-6155] done synthesizing module 'Exponent' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2478]
+INFO: [Synth 8-6155] done synthesizing module 'FlotiMaX_i1_94v1' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2457]
+INFO: [Synth 8-6155] done synthesizing module 'picorv32_pcpi_mul' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2196]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:331]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1268]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1314]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1314]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1497]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1497]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1583]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1583]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1583]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1583]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1583]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1583]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1627]
+INFO: [Synth 8-6155] done synthesizing module 'picorv32' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:62]
+WARNING: [Synth 8-7071] port 'mem_la_read' of module 'picorv32' is unconnected for instance 'cpu' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v:47]
+WARNING: [Synth 8-7071] port 'mem_la_write' of module 'picorv32' is unconnected for instance 'cpu' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v:47]
+WARNING: [Synth 8-7071] port 'mem_la_addr' of module 'picorv32' is unconnected for instance 'cpu' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v:47]
+WARNING: [Synth 8-7071] port 'mem_la_wdata' of module 'picorv32' is unconnected for instance 'cpu' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v:47]
+WARNING: [Synth 8-7071] port 'mem_la_wstrb' of module 'picorv32' is unconnected for instance 'cpu' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v:47]
+WARNING: [Synth 8-7071] port 'pcpi_valid' of module 'picorv32' is unconnected for instance 'cpu' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v:47]
+WARNING: [Synth 8-7071] port 'pcpi_insn' of module 'picorv32' is unconnected for instance 'cpu' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v:47]
+WARNING: [Synth 8-7071] port 'pcpi_rs1' of module 'picorv32' is unconnected for instance 'cpu' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v:47]
+WARNING: [Synth 8-7071] port 'pcpi_rs2' of module 'picorv32' is unconnected for instance 'cpu' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v:47]
+WARNING: [Synth 8-7071] port 'eoi' of module 'picorv32' is unconnected for instance 'cpu' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v:47]
+WARNING: [Synth 8-7071] port 'trace_valid' of module 'picorv32' is unconnected for instance 'cpu' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v:47]
+WARNING: [Synth 8-7071] port 'trace_data' of module 'picorv32' is unconnected for instance 'cpu' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v:47]
+WARNING: [Synth 8-7023] instance 'cpu' of module 'picorv32' has 27 connections declared, but only 15 given [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v:47]
+INFO: [Synth 8-6157] synthesizing module 'pico_adapter_to_fpga' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pico_adapter_to_fpga.v:32]
+	Parameter REG_WINDOW bound to: 1 - type: integer 
+	Parameter REG_ADDR_HI bound to: 16'b0000000000000000 
+INFO: [Synth 8-6155] done synthesizing module 'pico_adapter_to_fpga' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pico_adapter_to_fpga.v:32]
+INFO: [Synth 8-6155] done synthesizing module 'RiMaX' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/RiMaX.v:14]
+INFO: [Synth 8-6157] synthesizing module 'fpga_adapter_to_pico' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/fpga_interface.v:16]
+	Parameter REG_WINDOW bound to: 1 - type: integer 
+	Parameter REG_ADDR_HI bound to: 16'b0000000000000000 
+INFO: [Synth 8-6155] done synthesizing module 'fpga_adapter_to_pico' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/fpga_interface.v:16]
+INFO: [Synth 8-6157] synthesizing module 'picorv32_axi_adapter' [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pico_memory_2_axi.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'picorv32_axi_adapter' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pico_memory_2_axi.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pico_fpga_axi' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/TOP.v:22]
+INFO: [Synth 8-6155] done synthesizing module 'design_1_pico_fpga_axi_0_0' (0#1) [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.gen/sources_1/bd/design_1/ip/design_1_pico_fpga_axi_0_0/synth/design_1_pico_fpga_axi_0_0.v:53]
+WARNING: [Synth 8-6014] Unused sequential element pcpi_wr_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:2225]
+WARNING: [Synth 8-6014] Unused sequential element mem_la_firstword_reg_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:392]
+WARNING: [Synth 8-6014] Unused sequential element last_mem_valid_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:393]
+WARNING: [Synth 8-6014] Unused sequential element next_insn_opcode_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:433]
+WARNING: [Synth 8-6014] Unused sequential element mem_la_secondword_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:571]
+WARNING: [Synth 8-6014] Unused sequential element prefetched_high_word_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:572]
+WARNING: [Synth 8-6014] Unused sequential element q_ascii_instr_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:779]
+WARNING: [Synth 8-6014] Unused sequential element q_insn_imm_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:780]
+WARNING: [Synth 8-6014] Unused sequential element q_insn_opcode_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:781]
+WARNING: [Synth 8-6014] Unused sequential element q_insn_rs1_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:782]
+WARNING: [Synth 8-6014] Unused sequential element q_insn_rs2_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:783]
+WARNING: [Synth 8-6014] Unused sequential element q_insn_rd_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:784]
+WARNING: [Synth 8-6014] Unused sequential element dbg_next_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:785]
+WARNING: [Synth 8-6014] Unused sequential element dbg_valid_insn_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:788]
+WARNING: [Synth 8-6014] Unused sequential element cached_ascii_instr_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:793]
+WARNING: [Synth 8-6014] Unused sequential element cached_insn_imm_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:794]
+WARNING: [Synth 8-6014] Unused sequential element cached_insn_opcode_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:796]
+WARNING: [Synth 8-6014] Unused sequential element cached_insn_rs1_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:799]
+WARNING: [Synth 8-6014] Unused sequential element cached_insn_rs2_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:800]
+WARNING: [Synth 8-6014] Unused sequential element cached_insn_rd_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:801]
+WARNING: [Synth 8-6014] Unused sequential element dbg_insn_addr_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:805]
+WARNING: [Synth 8-6014] Unused sequential element clear_prefetched_high_word_q_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1293]
+WARNING: [Synth 8-6014] Unused sequential element set_mem_do_rinst_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1406]
+WARNING: [Synth 8-6014] Unused sequential element set_mem_do_rdata_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1407]
+WARNING: [Synth 8-6014] Unused sequential element set_mem_do_wdata_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1408]
+WARNING: [Synth 8-6014] Unused sequential element alu_out_0_q_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1410]
+WARNING: [Synth 8-6014] Unused sequential element alu_wait_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1413]
+WARNING: [Synth 8-6014] Unused sequential element alu_wait_2_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1414]
+WARNING: [Synth 8-6014] Unused sequential element dbg_rs1val_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1417]
+WARNING: [Synth 8-6014] Unused sequential element dbg_rs2val_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1418]
+WARNING: [Synth 8-6014] Unused sequential element dbg_rs1val_valid_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1419]
+WARNING: [Synth 8-6014] Unused sequential element dbg_rs2val_valid_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1420]
+WARNING: [Synth 8-6014] Unused sequential element next_irq_pending_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1440]
+WARNING: [Synth 8-6014] Unused sequential element decoder_trigger_q_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1447]
+WARNING: [Synth 8-6014] Unused sequential element decoder_pseudo_trigger_q_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1449]
+WARNING: [Synth 8-6014] Unused sequential element latched_trace_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1465]
+WARNING: [Synth 8-6014] Unused sequential element irq_active_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1471]
+WARNING: [Synth 8-6014] Unused sequential element irq_delay_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1472]
+WARNING: [Synth 8-6014] Unused sequential element irq_mask_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1473]
+WARNING: [Synth 8-6014] Unused sequential element irq_state_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1475]
+WARNING: [Synth 8-6014] Unused sequential element timer_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1477]
+WARNING: [Synth 8-6014] Unused sequential element current_pc_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1495]
+WARNING: [Synth 8-6014] Unused sequential element irq_pending_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1963]
+WARNING: [Synth 8-6014] Unused sequential element count_instr_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1437]
+WARNING: [Synth 8-6014] Unused sequential element trace_valid_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1452]
+WARNING: [Synth 8-6014] Unused sequential element count_cycle_reg was removed.  [/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.srcs/sources_1/new/pixo.v:1436]
+INFO: [Synth 8-7129] Port m_axi_rresp[1] in module picorv32_axi_adapter is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axi_rresp[0] in module picorv32_axi_adapter is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_out[6] in module fpga_adapter_to_pico is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_out[3] in module fpga_adapter_to_pico is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_out[2] in module fpga_adapter_to_pico is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_out[1] in module fpga_adapter_to_pico is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_out[0] in module fpga_adapter_to_pico is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_in[15] in module pico_adapter_to_fpga is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_in[14] in module pico_adapter_to_fpga is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_in[13] in module pico_adapter_to_fpga is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_in[12] in module pico_adapter_to_fpga is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_in[11] in module pico_adapter_to_fpga is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_in[10] in module pico_adapter_to_fpga is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_in[9] in module pico_adapter_to_fpga is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_in[8] in module pico_adapter_to_fpga is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_in[7] in module pico_adapter_to_fpga is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_in[6] in module pico_adapter_to_fpga is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_in[5] in module pico_adapter_to_fpga is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_in[4] in module pico_adapter_to_fpga is either unconnected or has no load
+INFO: [Synth 8-7129] Port uio_in[3] in module pico_adapter_to_fpga is either unconnected or has no load
+INFO: [Synth 8-7129] Port ena in module pico_adapter_to_fpga is either unconnected or has no load
+INFO: [Synth 8-7129] Port c[15] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port c[14] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port c[13] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port c[12] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port c[11] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port c[10] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port c[9] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port c[8] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port c[7] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port c[6] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port c[5] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port c[4] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port c[3] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port c[2] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port c[1] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port c[0] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port d[15] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port d[14] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port d[13] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port d[12] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port d[11] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port d[10] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port d[9] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port d[8] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port d[7] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port d[6] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port d[5] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port d[4] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port d[3] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port d[2] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port d[1] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port d[0] in module TIM1_Hx is either unconnected or has no load
+INFO: [Synth 8-7129] Port resetn in module picorv32_pcpi_mul is either unconnected or has no load
+INFO: [Synth 8-7129] Port pcpi_insn[24] in module picorv32_pcpi_mul is either unconnected or has no load
+INFO: [Synth 8-7129] Port pcpi_insn[23] in module picorv32_pcpi_mul is either unconnected or has no load
+INFO: [Synth 8-7129] Port pcpi_insn[22] in module picorv32_pcpi_mul is either unconnected or has no load
+INFO: [Synth 8-7129] Port pcpi_insn[21] in module picorv32_pcpi_mul is either unconnected or has no load
+INFO: [Synth 8-7129] Port pcpi_insn[20] in module picorv32_pcpi_mul is either unconnected or has no load
+INFO: [Synth 8-7129] Port pcpi_insn[19] in module picorv32_pcpi_mul is either unconnected or has no load
+INFO: [Synth 8-7129] Port pcpi_insn[18] in module picorv32_pcpi_mul is either unconnected or has no load
+INFO: [Synth 8-7129] Port pcpi_insn[17] in module picorv32_pcpi_mul is either unconnected or has no load
+INFO: [Synth 8-7129] Port pcpi_insn[16] in module picorv32_pcpi_mul is either unconnected or has no load
+INFO: [Synth 8-7129] Port pcpi_insn[15] in module picorv32_pcpi_mul is either unconnected or has no load
+INFO: [Synth 8-7129] Port pcpi_insn[11] in module picorv32_pcpi_mul is either unconnected or has no load
+INFO: [Synth 8-7129] Port pcpi_insn[10] in module picorv32_pcpi_mul is either unconnected or has no load
+INFO: [Synth 8-7129] Port pcpi_insn[9] in module picorv32_pcpi_mul is either unconnected or has no load
+INFO: [Synth 8-7129] Port pcpi_insn[8] in module picorv32_pcpi_mul is either unconnected or has no load
+INFO: [Synth 8-7129] Port pcpi_insn[7] in module picorv32_pcpi_mul is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[31] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[30] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[29] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[28] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[27] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[26] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[25] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[24] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[23] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[22] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[21] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[20] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[19] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[18] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[17] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[16] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[15] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[14] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[13] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[12] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[11] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[10] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[9] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[8] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[7] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[6] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[5] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[4] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[3] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[2] in module picorv32 is either unconnected or has no load
+INFO: [Synth 8-7129] Port irq[1] in module picorv32 is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2333.219 ; gain = 588.930 ; free physical = 5287 ; free virtual = 54382
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2342.125 ; gain = 597.836 ; free physical = 5283 ; free virtual = 54378
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2342.125 ; gain = 597.836 ; free physical = 5283 ; free virtual = 54378
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2342.125 ; gain = 0.000 ; free physical = 5282 ; free virtual = 54378
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2446.926 ; gain = 0.000 ; free physical = 5253 ; free virtual = 54358
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2446.961 ; gain = 0.000 ; free physical = 5252 ; free virtual = 54357
+INFO: [Designutils 20-5008] Incremental synthesis strategy off
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2446.961 ; gain = 702.672 ; free physical = 5296 ; free virtual = 54571
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg400-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2454.930 ; gain = 710.641 ; free physical = 5322 ; free virtual = 54596
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2454.930 ; gain = 710.641 ; free physical = 5301 ; free virtual = 54575
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'mem_state_reg' in module 'picorv32'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'pico_adapter_to_fpga'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'fpga_adapter_to_pico'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'picorv32_axi_adapter'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 iSTATE2 |                               00 |                               00
+                 iSTATE0 |                               01 |                               10
+                  iSTATE |                               10 |                               01
+                 iSTATE1 |                               11 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'mem_state_reg' using encoding 'sequential' in module 'picorv32'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                             0000 |                             0000
+                    AR_1 |                             0001 |                             0001
+                    AR_2 |                             0010 |                             0010
+                    RD_1 |                             0011 |                             0011
+                    RD_2 |                             0100 |                             0100
+                    WD_1 |                             0101 |                             0101
+                    WD_2 |                             0110 |                             0110
+                    WD_3 |                             0111 |                             0111
+                     ACK |                             1000 |                             1000
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'pico_adapter_to_fpga'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                              000 |                             0000
+                     REQ |                              001 |                             0001
+                    WD_1 |                              010 |                             0100
+                    RD_1 |                              011 |                             0010
+                    RD_2 |                              100 |                             0011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'fpga_adapter_to_pico'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                              000 |                              000
+                  AW_ACK |                              001 |                              001
+                   W_ACK |                              010 |                              010
+                   W_RES |                              011 |                              011
+                  AR_ACK |                              100 |                              100
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'picorv32_axi_adapter'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2454.930 ; gain = 710.641 ; free physical = 5199 ; free virtual = 54503
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   32 Bit       Adders := 4     
+	   3 Input   32 Bit       Adders := 1     
+	   2 Input    5 Bit       Adders := 1     
+	   2 Input    4 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
+	   2 Input      1 Bit         XORs := 83    
++---Registers : 
+	               36 Bit    Registers := 1     
+	               32 Bit    Registers := 17    
+	                8 Bit    Registers := 1     
+	                5 Bit    Registers := 2     
+	                4 Bit    Registers := 5     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 79    
++---RAMs : 
+	              512 Bit	(16 X 32 bit)          RAMs := 1     
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 26    
+	   6 Input   32 Bit        Muxes := 1     
+	   3 Input   32 Bit        Muxes := 3     
+	   4 Input   32 Bit        Muxes := 8     
+	   2 Input   23 Bit        Muxes := 1     
+	   2 Input   16 Bit        Muxes := 1     
+	   9 Input   16 Bit        Muxes := 1     
+	   5 Input   16 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 3     
+	   4 Input    8 Bit        Muxes := 2     
+	   6 Input    5 Bit        Muxes := 1     
+	   5 Input    4 Bit        Muxes := 1     
+	   2 Input    4 Bit        Muxes := 3     
+	   4 Input    4 Bit        Muxes := 1     
+	   9 Input    4 Bit        Muxes := 1     
+	   3 Input    4 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 4     
+	   5 Input    3 Bit        Muxes := 1     
+	  14 Input    3 Bit        Muxes := 1     
+	   4 Input    2 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 2     
+	   3 Input    2 Bit        Muxes := 1     
+	   9 Input    2 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 26    
+	   7 Input    1 Bit        Muxes := 1     
+	   3 Input    1 Bit        Muxes := 2     
+	   4 Input    1 Bit        Muxes := 9     
+	   6 Input    1 Bit        Muxes := 2     
+	   9 Input    1 Bit        Muxes := 4     
+	   5 Input    1 Bit        Muxes := 10    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-3917] design design_1_pico_fpga_axi_0_0 has port m_axi_awprot[2] driven by constant 0
+INFO: [Synth 8-3917] design design_1_pico_fpga_axi_0_0 has port m_axi_awprot[1] driven by constant 0
+INFO: [Synth 8-3917] design design_1_pico_fpga_axi_0_0 has port m_axi_awprot[0] driven by constant 0
+INFO: [Synth 8-3917] design design_1_pico_fpga_axi_0_0 has port m_axi_arprot[1] driven by constant 0
+INFO: [Synth 8-3917] design design_1_pico_fpga_axi_0_0 has port m_axi_arprot[0] driven by constant 0
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 2454.930 ; gain = 710.641 ; free physical = 3631 ; free virtual = 53174
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++----------------+-------------+-----------+----------------------+-------------+
+|Module Name     | RTL Object  | Inference | Size (Depth x Width) | Primitives  | 
++----------------+-------------+-----------+----------------------+-------------+
+|\inst/chip/cpu  | cpuregs_reg | Implied   | 16 x 32              | RAM32M x 6  | 
++----------------+-------------+-----------+----------------------+-------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 2454.930 ; gain = 710.641 ; free physical = 3538 ; free virtual = 53081
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping Report
++----------------+-------------+-----------+----------------------+-------------+
+|Module Name     | RTL Object  | Inference | Size (Depth x Width) | Primitives  | 
++----------------+-------------+-----------+----------------------+-------------+
+|\inst/chip/cpu  | cpuregs_reg | Implied   | 16 x 32              | RAM32M x 6  | 
++----------------+-------------+-----------+----------------------+-------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 2454.930 ; gain = 710.641 ; free physical = 3561 ; free virtual = 53104
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2553.742 ; gain = 809.453 ; free physical = 4301 ; free virtual = 53847
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2553.742 ; gain = 809.453 ; free physical = 4395 ; free virtual = 53941
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2553.742 ; gain = 809.453 ; free physical = 5404 ; free virtual = 54950
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2553.742 ; gain = 809.453 ; free physical = 5428 ; free virtual = 54973
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2553.742 ; gain = 809.453 ; free physical = 5505 ; free virtual = 55049
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2553.742 ; gain = 809.453 ; free physical = 5504 ; free virtual = 55049
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |CARRY4   |    51|
+|2     |LUT1     |     3|
+|3     |LUT2     |   110|
+|4     |LUT3     |   138|
+|5     |LUT4     |   271|
+|6     |LUT5     |   213|
+|7     |LUT6     |   422|
+|8     |RAM32M   |     5|
+|9     |RAM32X1D |     2|
+|10    |FDRE     |   574|
+|11    |FDSE     |    28|
++------+---------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2553.742 ; gain = 809.453 ; free physical = 5504 ; free virtual = 55049
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 2553.742 ; gain = 704.617 ; free physical = 5498 ; free virtual = 55043
+Synthesis Optimization Complete : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2553.750 ; gain = 809.453 ; free physical = 5498 ; free virtual = 55042
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2569.586 ; gain = 0.000 ; free physical = 5641 ; free virtual = 55186
+INFO: [Netlist 29-17] Analyzing 58 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+WARNING: [Netlist 29-101] Netlist 'design_1_pico_fpga_axi_0_0' is not ideal for floorplanning, since the cellview 'picorv32' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2722.207 ; gain = 0.000 ; free physical = 8809 ; free virtual = 58352
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 7 instances were transformed.
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 5 instances
+  RAM32X1D => RAM32X1D (RAMD32(x2)): 2 instances
+
+Synth Design complete | Checksum: 697fd8b1
+INFO: [Common 17-83] Releasing license: Synthesis
+188 Infos, 70 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:23 ; elapsed = 00:00:22 . Memory (MB): peak = 2722.242 ; gain = 1098.508 ; free physical = 8803 ; free virtual = 58345
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1785.514; main = 1785.514; forked = 206.101
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3449.934; main = 2722.211; forked = 995.000
+INFO: [Coretcl 2-1174] Renamed 7 cell refs.
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2746.219 ; gain = 0.000 ; free physical = 8801 ; free virtual = 58343
+INFO: [Common 17-1381] The checkpoint '/home/pouria/Desktop/codes/FPGA/VIVADO/heichip_1v0/heichip_1v0.runs/design_1_pico_fpga_axi_0_0_synth_1/design_1_pico_fpga_axi_0_0.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file design_1_pico_fpga_axi_0_0_utilization_synth.rpt -pb design_1_pico_fpga_axi_0_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Wed Sep  9 16:03:26 2026...

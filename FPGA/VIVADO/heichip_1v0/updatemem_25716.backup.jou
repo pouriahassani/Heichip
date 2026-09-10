@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# updatemem v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Mon Sep  7 17:05:07 2026
+# Process ID         : 25716
+# Current directory  : c:/Users/GP/Desktop/FPGA/heichip_1v0
+# Command line       : updatemem.exe -mode batch -source C:/AMDDesignTools_V2/2025.2/Vivado/scripts/updatemem/main.tcl -notrace -tclargs -meminfo blk_mem_gen_0.mmi -data C:/Users/GP/Desktop/FPGA/uart_test_1v0/uart_test.elf -proc dummy -bit C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.runs/impl_1/design_1_wrapper.bit -out C:/Users/GP/Desktop/FPGA/heichip_1v0/heichip_1v0.runs/impl_1/design_1_wrapper.bit -force
+# Log file           : c:/Users/GP/Desktop/FPGA/heichip_1v0/updatemem.log
+# Journal file       : c:/Users/GP/Desktop/FPGA/heichip_1v0\updatemem.jou
+# Running On         : DESKTOP-7K916Q2
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : 13th Gen Intel(R) Core(TM) i7-1355U
+# CPU Frequency      : 2611 MHz
+# CPU Physical cores : 10
+# CPU Logical cores  : 12
+# Host memory        : 16836 MB
+# Swap memory        : 12363 MB
+# Total Virtual      : 29200 MB
+# Available Virtual  : 3663 MB
+#-----------------------------------------------------------
+source C:/AMDDesignTools_V2/2025.2/Vivado/scripts/updatemem/main.tcl -notrace

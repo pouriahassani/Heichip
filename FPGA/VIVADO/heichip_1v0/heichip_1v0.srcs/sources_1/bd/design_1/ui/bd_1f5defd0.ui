@@ -1,0 +1,36 @@
+{
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"0.591563",
+   "Default View_TopLeft":"0,-198",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.8.0 2024-04-26 e1825d835c VDI=44 GEI=38 GUI=JA:21.0 TLS
+#  -string -flagsOSRD
+preplace port DDR -pg 1 -lvl 7 -x 1900 -y 80 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 7 -x 1900 -y 110 -defaultsOSRD
+preplace port port-id_trap_0 -pg 1 -lvl 7 -x 1900 -y 470 -defaultsOSRD
+preplace inst smartconnect_0 -pg 1 -lvl 4 -x 1170 -y 370 -defaultsOSRD
+preplace inst proc_sys_reset_0 -pg 1 -lvl 2 -x 600 -y 240 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 1 -x 210 -y 150 -defaultsOSRD
+preplace inst axi_bram_ctrl_0 -pg 1 -lvl 5 -x 1470 -y 380 -defaultsOSRD
+preplace inst blk_mem_gen_0 -pg 1 -lvl 6 -x 1750 -y 380 -defaultsOSRD
+preplace inst axi_uartlite_0 -pg 1 -lvl 5 -x 1470 -y 230 -defaultsOSRD
+preplace inst pico_fpga_axi_0 -pg 1 -lvl 3 -x 900 -y 400 -defaultsOSRD
+preplace netloc axi_uartlite_0_tx 1 1 5 420 120 N 120 N 120 N 120 1620
+preplace netloc pico_fpga_axi_0_trap 1 3 4 1010J 470 NJ 470 NJ 470 NJ
+preplace netloc proc_sys_reset_0_interconnect_aresetn 1 2 3 780 300 1030 280 1330
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 5 10 10 410 140 790 290 1020 290 1320
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 1 1 410 220n
+preplace netloc processing_system7_0_UART0_TX 1 1 5 N 130 N 130 N 130 N 130 1610
+preplace netloc axi_bram_ctrl_0_BRAM_PORTA 1 5 1 NJ 380
+preplace netloc pico_fpga_axi_0_m_axi 1 3 1 1010 350n
+preplace netloc processing_system7_0_DDR 1 1 6 420J 80 NJ 80 NJ 80 NJ 80 NJ 80 NJ
+preplace netloc processing_system7_0_FIXED_IO 1 1 6 NJ 90 NJ 90 NJ 90 NJ 90 NJ 90 1880J
+preplace netloc smartconnect_0_M00_AXI 1 4 1 N 360
+preplace netloc smartconnect_0_M01_AXI 1 4 1 1310 210n
+levelinfo -pg 1 -10 210 600 900 1170 1470 1750 1900
+pagesize -pg 1 -db -bbox -sgen -10 0 2020 530
+"
+}
+{
+   "da_ps7_cnt":"1"
+}
