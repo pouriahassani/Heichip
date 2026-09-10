@@ -315,9 +315,9 @@ write_mmi blk_mem_gen_0
 ```sh
 exec updatemem -force -meminfo blk_mem_gen_0.mmi \
           -data    uart_test.elf \
-          -bit     design_wrapper.bit \
+          -bit     [path to current generated bit file]/design_wrapper.bit \
           -proc    dummy \
-          -out     design_wrapper_fw.bit           
+          -out     [path to bit file to be generated]/design_wrapper_fw.bit           
 ```
 
 Then export the XSA from the **patched** bitstream and create the Vitis
