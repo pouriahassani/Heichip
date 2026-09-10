@@ -311,7 +311,7 @@ tool to intilize the block mem. Follow the commands below:
 ```sh
 source write_mmi_fixed.tcl
 write_mmi blk_mem_gen_0
-```sh
+```
 updatemem -meminfo design.mmi \
           -data    uart_test.elf \
           -bit     design_wrapper.bit \
