@@ -313,12 +313,11 @@ source write_mmi_fixed.tcl
 write_mmi blk_mem_gen_0
 ```
 ```sh
-updatemem -meminfo design.mmi \
+exec updatemem -force -meminfo blk_mem_gen_0.mmi \
           -data    uart_test.elf \
           -bit     design_wrapper.bit \
-          -proc    <instance_path_from_the_mmi> \
-          -out     design_wrapper_fw.bit \
-          -force
+          -proc    dummy \
+          -out     design_wrapper_fw.bit           
 ```
 
 Then export the XSA from the **patched** bitstream and create the Vitis
